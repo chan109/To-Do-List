@@ -1,0 +1,15 @@
+.task {
+    padding: 5px;
+    background-color: #ccc;
+    margin: 9px 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    border: 1px solid #aaa;
+}
+
+.task > button {
+    float:right;
+    margin-top: -2px;
+    height: 24px;
+    width: 24px;
+    padding: 0;
+}
