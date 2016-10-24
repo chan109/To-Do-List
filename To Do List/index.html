@@ -15,34 +15,34 @@
     <script src="scripts.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h2>New tasks</h2>
+    <div class="col-sm-4 col-md-3 col-xl-2">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="New task" id="itemToAdd">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button" onclick="addItem()">Add</button>
+			</span>
+	    </div>
+		
+		<div id="tasks-container" class="panel panel-default">
+	        <div class="panel-heading" data-toggle="collapse" data-parent="#tasks-container" href="#new-tasks-container">
+				<span class="glyphicon glyphicon-asterisk"></span>
+				New tasks
+			</div>
+	        <div id="new-tasks-container" class="panel-collapse collapse in">
+				<div id="new-tasks-list" class="panel-body"></div>
+			</div>
 
-                <div id="list-container">
-
-                </div>
-
-                <h2>Planned tasks</h2>
-
-                <div id="list-container-with-date">
-
-                </div>
-
-                <hr />
-
-                <div>
-                    <input type="text" id="itemToAdd">
-                    <button class="btn btn-primary" id="add" onclick="addItem()">Add</button>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div id="calendar">
-
-                </div>
-            </div>
-        </div>
+	        <div class="panel-heading" data-toggle="collapse" data-parent="#tasks-container" href="#planned-tasks-container">
+				<span class="glyphicon glyphicon-calendar"></span>
+				Planned tasks
+			</div>
+	        <div id="planned-tasks-container" class="panel-collapse collapse in">
+				<div id="planned-tasks-list" class="panel-body"></div>
+			</div>
+		</div>
+    </div>
+    <div class="col-sm-8 col-md-9 col-xl-10">
+        <div id="calendar"></div>
     </div>
 </body>
 </html>

@@ -15,8 +15,8 @@ var colors = ['#2C8FC9', '#9CB703', '#F5BB00', '#FF4A32', '#B56CE2', '#45A597'];
 
 function refreshItems()
 {
-    $('#list-container').empty();
-    $('#list-container-with-date').empty();
+    $('#new-tasks-list').empty();
+    $('#planned-tasks-list').empty();
 
     items.sort(function (A,B) {
        if(!A.date){return -1;}
@@ -33,19 +33,25 @@ function refreshItems()
         div.addClass('task');
         div.attr('draggable', true);
         div.attr('data-name', items[i].name);
-        div.text(items[i].name);
-
+		
         if(items[i].color) {
             div.css('background-color', items[i].color);
         }
 
+		var span = $('<span />');
+		
+		span.append(items[i].name);
+
         if(items[i].date) {
-            div.text(items[i].name + ' (' + items[i].date.getDate() + '/' + (items[i].date.getMonth() + 1) + '/' + items[i].date.getFullYear() + ')');
+            span.text(items[i].name + ' (' + items[i].date.getDate() + '/' + (items[i].date.getMonth() + 1) + '/' + items[i].date.getFullYear() + ')');
         }
+		
+		div.append(span);
 
         var removeButton = $('<button />');
         removeButton.text('X');
         removeButton.addClass('btn btn-danger');
+		removeButton.html('<span class="glyphicon glyphicon-remove"></span>');
 
         (function(taskName) {
             removeButton.click(function() { removeTask(taskName)} );
@@ -53,13 +59,12 @@ function refreshItems()
 
         div.append(removeButton);
 
-        if(!items[i].date)
-        {
-            $('#list-container').append(div);
+        if( !items[i].date) {
+            $('#new-tasks-list').append(div);
         }
         else
         {
-            $('#list-container-with-date').append(div);
+            $('#planned-tasks-list').append(div);
             itemsWithDate.push(items[i]);
         }
     }
