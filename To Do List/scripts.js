@@ -64,6 +64,8 @@ function refreshItems()
     });
 	
 	$('.task-list').each(function() {
+		$(this).parent().prev().find('.task-number').text($(this).find('.task').length);
+		
 		if($(this).is(':empty')) {
 			$(this).text("No task to display");
 		}
