@@ -63,6 +63,14 @@ function refreshItems()
     $('.task').on('dragstart', function(e) {
         e.originalEvent.dataTransfer.setData('name', $(e.target).attr('data-name'));
     });
+	
+	if($('#new-tasks-list').is(':empty')) {
+		$('#new-tasks-list').text("No task to display");
+	}
+	
+	if($('#planned-tasks-list').is(':empty')) {
+		$('#planned-tasks-list').text("No task to display");
+	}
 }
 
 function addItem() {
