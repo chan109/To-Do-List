@@ -1,13 +1,14 @@
 /**
  * Created by chanhaokun on 2016-10-22.
  */
-var items= [
-    {name:"Guitar lesson with James" },
-    {name:"CPSC 304 assignment02" },
-    {name:"Badminton training session" },
-    {name:"Appointment with Davie" }
+var items = [
+    { id: 1, name:"Guitar lesson with James" },
+    { id: 2, name:"CPSC 304 assignment02" },
+    { id: 3, name:"Badminton training session" },
+    { id: 4, name:"Appointment with Davie" }
 ];
 
+var iTask = 5; // With the default tasks.
 var iColor = 1;
 
 var colors = ['#2C8FC9', '#9CB703', '#F5BB00', '#FF4A32', '#B56CE2', '#45A597'];
@@ -32,10 +33,8 @@ function refreshItems()
 		
 		var div = $(divHtml);
 		
-		(function(taskName) {
-            div.find('.remove-button').click(function() { removeTask(taskName)} );
-			div.find('.treat-button').click(function() { treatTask(taskName)} );
-        })(items[i].name);
+		div.find('.remove-button').click(removeTask);
+		div.find('.treat-button').click(treatTask);
 
 		if (items[i].treated) {
 			$('#treated-tasks-list').append(div);
@@ -58,10 +57,6 @@ function refreshItems()
             endDate: item.date
         };
     }, true));
-
-    $('.task').on('dragstart', function(e) {
-        e.originalEvent.dataTransfer.setData('name', $(e.target).attr('data-name'));
-    });
 	
 	$('.task-list').each(function() {
 		$(this).parent().prev().find('.task-number').text($(this).find('.task').length);
@@ -88,23 +83,25 @@ function addItem() {
         return;
     }
 
-    items.push({ name: $('#itemToAdd').val() });
+    items.push({ id: iTask++, name: $('#itemToAdd').val() });
     refreshItems();
 }
 
-function removeTask(name) {
-	debugger
+function removeTask(e) {
+	var id = $(e.currentTarget).closest('.task').attr('data-id');
 	
     items = items.filter(function(item){
-        return item.name != name;
+        return item.id != id;
     });
 
     refreshItems();
 }
 
 function treatTask(name) {
+	var id = $(e.currentTarget).closest('.task').attr('data-id');
+	
     for(var i = 0; i < items.length; i++) {
-		if(items[i].name == name) {
+		if(items[i].id == id) {
 			items[i].treated = true;
 		}
 	}
@@ -113,6 +110,7 @@ function treatTask(name) {
 }
 
 $(function (){
+	// Initialize the calendar
     $('#calendar').calendar({
         mouseOnDay: function(e) {
             if(e.events.length > 0) {
@@ -141,16 +139,21 @@ $(function (){
         },
     });
 	
+	// Initialize the drag/drop functionality.
+	$('.task-list').on('dragstart', '.task', function(e) {
+        e.originalEvent.dataTransfer.setData('id', $(e.target).attr('data-id'));
+    });
+	
 	$('#calendar').on('dragover', 'td', false);
 
     $('#calendar').on('drop', 'td', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        var taskName = e.originalEvent.dataTransfer.getData('name');
+        var taskId = e.originalEvent.dataTransfer.getData('id');
 
         for(var i = 0; i < items.length; i++) {
-            if(items[i].name == taskName) {
+            if(items[i].id == taskId) {
                 items[i].date = $('#calendar').data('calendar')._getDate($(e.target).parent());
                 if(!items[i].color) {
                     items[i].color = colors[iColor % colors.length];

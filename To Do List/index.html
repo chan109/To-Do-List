@@ -55,7 +55,7 @@
         <div id="calendar"></div>
     </div>
 	<script type="text/x-jsrender" id="task-template">
-		<div class="task {{if treated}}disabled{{/if}}" {{if !treated}} draggable="true" {{/if}} data-name="{{:name}}" {{if color}} style="background-color: {{:color}}" {{/if}}>
+		<div class="task {{if treated}}disabled{{/if}}" {{if !treated}} draggable="true" {{/if}} data-id="{{:id}}" {{if color}} style="background-color: {{:color}}" {{/if}}>
 			<span>
 				{{:name}}
 				{{if date}} ({{:~getDate(date)}}) {{/if}}
