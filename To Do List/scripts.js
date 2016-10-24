@@ -98,7 +98,7 @@ function removeTask(e) {
     refreshItems();
 }
 
-function treatTask(name) {
+function treatTask(e) {
 	var id = $(e.currentTarget).closest('.task').attr('data-id');
 	
     for(var i = 0; i < items.length; i++) {
