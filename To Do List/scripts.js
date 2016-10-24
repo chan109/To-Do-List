@@ -118,7 +118,7 @@ $(function (){
                 var content = '';
 
                 for(var i in e.events) {
-                    content += '<div class="event-tooltip-content">'
+                    content += '<div class="task-tooltip">'
                         + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
                         + '</div>';
                 }
