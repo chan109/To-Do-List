@@ -84,6 +84,7 @@ function addItem() {
     }
 
     items.push({ id: iTask++, name: $('#itemToAdd').val() });
+	$('#itemToAdd').val('');
     refreshItems();
 }
 
