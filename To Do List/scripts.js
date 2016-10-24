@@ -81,28 +81,6 @@ function refreshItems()
     $('.task').on('dragstart', function(e) {
         e.originalEvent.dataTransfer.setData('name', $(e.target).attr('data-name'));
     });
-
-    $('#calendar td').on('dragover', false);
-
-    $('#calendar td').on('drop', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var taskName = e.originalEvent.dataTransfer.getData('name');
-
-        for(var i = 0; i < items.length; i++) {
-            if(items[i].name == taskName) {
-                debugger
-                items[i].date = $('#calendar').data('calendar')._getDate($(e.target).parent());
-                if(!items[i].color) {
-                    items[i].color = colors[iColor % colors.length];
-                    iColor++;
-                }
-            }
-        }
-
-        refreshItems();
-    });
 }
 
 function addItem() {
@@ -151,5 +129,27 @@ $(function (){
             }
         },
     });
-  refreshItems();
+	
+	$('#calendar').on('dragover', 'td', false);
+
+    $('#calendar').on('drop', 'td', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var taskName = e.originalEvent.dataTransfer.getData('name');
+
+        for(var i = 0; i < items.length; i++) {
+            if(items[i].name == taskName) {
+                items[i].date = $('#calendar').data('calendar')._getDate($(e.target).parent());
+                if(!items[i].color) {
+                    items[i].color = colors[iColor % colors.length];
+                    iColor++;
+                }
+            }
+        }
+
+        refreshItems();
+    });
+	
+	refreshItems();
 });
