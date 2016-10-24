@@ -26,12 +26,21 @@ button.btn,
 }
 
 .task {
-    padding: 4px 30px 4px 8px;
+    padding: 4px 60px 4px 8px;
     background-color: #ccc;
     margin: 9px 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     border: 1px solid #aaa;
 	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+}
+
+.task.disabled {
+	color: #888;
+	background-color: #eee!important;
+	border-color: #ccc;
+	cursor: default;
 }
 
 .task > span {
@@ -44,9 +53,15 @@ button.btn,
 	text-overflow: ellipsis;
 }
 
-.task > button {
+.task > .buttons-container {
     position: absolute;
-    height: 24px;
+	display: inline-block;
+	width: 50px;
+	text-align: right;
+}
+
+.task button {
+	height: 24px;
     width: 24px;
     padding: 2px;
 }

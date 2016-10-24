@@ -16,17 +16,12 @@ var colors = ['#2C8FC9', '#9CB703', '#F5BB00', '#FF4A32', '#B56CE2', '#45A597'];
 function refreshItems()
 {
     $('#new-tasks-list').empty();
-    $('#planned-tasks-list').empty();
+	$('#planned-tasks-list').empty();
+    $('#treated-tasks-list').empty();
 
-    items.sort(function (A,B) {
-       if(!A.date){return -1;}
-       if(!B.date){return 1;}
-       if(A.date.getTime()>B.date.getTime()){return 1;}
-       if(A.date.getTime()<B.date.getTime()){return -1;}
-       return 0;
-    });
+    sortItems();
 
-    var itemsWithDate = [];
+    var plannedItems = [];
 
     for(var i = 0; i < items.length; i++) {
 		var divHtml = $.templates("#task-template").render(items[i], { 
@@ -38,20 +33,24 @@ function refreshItems()
 		var div = $(divHtml);
 		
 		(function(taskName) {
-            div.find('button').click(function() { removeTask(taskName)} );
+            div.find('.remove-button').click(function() { removeTask(taskName)} );
+			div.find('.treat-button').click(function() { treatTask(taskName)} );
         })(items[i].name);
 
-        if( !items[i].date) {
+		if (items[i].treated) {
+			$('#treated-tasks-list').append(div);
+		}
+        else if (!items[i].date) {
             $('#new-tasks-list').append(div);
         }
         else
         {
             $('#planned-tasks-list').append(div);
-            itemsWithDate.push(items[i]);
+            plannedItems.push(items[i]);
         }
     }
 
-    $('#calendar').data('calendar').setDataSource(itemsWithDate.map(function(item){
+    $('#calendar').data('calendar').setDataSource(plannedItems.map(function(item){
         return {
             name: item.name,
             color: item.color,
@@ -64,13 +63,21 @@ function refreshItems()
         e.originalEvent.dataTransfer.setData('name', $(e.target).attr('data-name'));
     });
 	
-	if($('#new-tasks-list').is(':empty')) {
-		$('#new-tasks-list').text("No task to display");
-	}
-	
-	if($('#planned-tasks-list').is(':empty')) {
-		$('#planned-tasks-list').text("No task to display");
-	}
+	$('.task-list').each(function() {
+		if($(this).is(':empty')) {
+			$(this).text("No task to display");
+		}
+	})
+}
+
+function sortItems() {
+	items.sort(function (A,B) {
+       if(!A.date){return -1;}
+       if(!B.date){return 1;}
+       if(A.date.getTime()>B.date.getTime()){return 1;}
+       if(A.date.getTime()<B.date.getTime()){return -1;}
+       return 0;
+    });
 }
 
 function addItem() {
@@ -84,9 +91,21 @@ function addItem() {
 }
 
 function removeTask(name) {
+	debugger
+	
     items = items.filter(function(item){
         return item.name != name;
     });
+
+    refreshItems();
+}
+
+function treatTask(name) {
+    for(var i = 0; i < items.length; i++) {
+		if(items[i].name == name) {
+			items[i].treated = true;
+		}
+	}
 
     refreshItems();
 }
