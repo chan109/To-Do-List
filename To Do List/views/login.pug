@@ -1,0 +1,15 @@
+extends layout
+block title
+    title Login
+block content
+    .container
+        h1 Login
+        br
+        form(role='form', action="/api/login",method="post", style='max-width: 300px;')
+            .form-group
+                input.form-control(type='text', name="username", placeholder='Enter Username')
+            .form-group
+                input.form-control(type='password', name="password", placeholder='Password')
+            button.btn.btn-default(type='submit') Submit
+            a(href='/')
+                button.btn.btn-primary.pull-right(type="button") Cancel
