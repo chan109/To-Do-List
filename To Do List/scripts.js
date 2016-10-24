@@ -29,35 +29,17 @@ function refreshItems()
     var itemsWithDate = [];
 
     for(var i = 0; i < items.length; i++) {
-        var div = $('<div />');
-        div.addClass('task');
-        div.attr('draggable', true);
-        div.attr('data-name', items[i].name);
+		var divHtml = $.templates("#task-template").render(items[i], { 
+			getDate: function(date) { 
+				return moment(date).format('DD/MM/YYYY') 
+			}
+		});
 		
-        if(items[i].color) {
-            div.css('background-color', items[i].color);
-        }
-
-		var span = $('<span />');
+		var div = $(divHtml);
 		
-		span.append(items[i].name);
-
-        if(items[i].date) {
-            span.text(items[i].name + ' (' + items[i].date.getDate() + '/' + (items[i].date.getMonth() + 1) + '/' + items[i].date.getFullYear() + ')');
-        }
-		
-		div.append(span);
-
-        var removeButton = $('<button />');
-        removeButton.text('X');
-        removeButton.addClass('btn btn-danger');
-		removeButton.html('<span class="glyphicon glyphicon-remove"></span>');
-
-        (function(taskName) {
-            removeButton.click(function() { removeTask(taskName)} );
+		(function(taskName) {
+            div.find('button').click(function() { removeTask(taskName)} );
         })(items[i].name);
-
-        div.append(removeButton);
 
         if( !items[i].date) {
             $('#new-tasks-list').append(div);
