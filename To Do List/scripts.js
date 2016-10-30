@@ -2,10 +2,10 @@
  * Created by chanhaokun on 2016-10-22.
  */
 var items = [
-    { id: 1, name:"Guitar lesson with James" },
-    { id: 2, name:"CPSC 304 assignment02" },
-    { id: 3, name:"Badminton training session" },
-    { id: 4, name:"Appointment with Davie" }
+    { id: 1, name:"Guitar lesson with James", duration: 1 },
+    { id: 2, name:"CPSC 304 assignment02", duration: 1 },
+    { id: 3, name:"Badminton training session", duration: 1 },
+    { id: 4, name:"Appointment with Davie", duration: 1 }
 ];
 
 var iTask = 5; // With the default tasks.
@@ -54,7 +54,7 @@ function refreshItems()
             name: item.name,
             color: item.color,
             startDate: item.date,
-            endDate: item.date
+            endDate: getEndDay(item.date, item.duration)
         };
     }, true));
 	
@@ -65,6 +65,12 @@ function refreshItems()
 			$(this).text("No task to display");
 		}
 	})
+}
+
+function getEndDay(date,duration) {
+    var result = new Date(date);
+    result.setDate(date.getDate() + duration-1);
+    return result;
 }
 
 function sortItems() {
@@ -82,8 +88,23 @@ function addItem() {
         alert('Please type a name for the task.');
         return;
     }
+    var durationRadios=$('input:radio');
+    var durationInput=1;
+    for(var i = 0; i<durationRadios.length; i++)
+    {
+        if(durationRadios[i].checked==true)
+        {
+            durationInput = parseInt(durationRadios[i].value);
+        }
+    }
 
-    items.push({ id: iTask++, name: $('#itemToAdd').val() });
+    debugger
+    if($('#otherDay').val())
+    {
+        durationInput = parseInt($('#otherDay').val());
+    }
+
+    items.push({ id: iTask++, name: $('#itemToAdd').val(), duration: durationInput });
 	$('#itemToAdd').val('');
     refreshItems();
 }
