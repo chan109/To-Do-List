@@ -73,6 +73,9 @@ button.btn,
 .task > div{
 	display: table-cell;
 	padding: 4px 8px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 150px;
 }
 
 .task > .duration {
