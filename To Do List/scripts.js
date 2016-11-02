@@ -16,7 +16,6 @@ var colors = ['#2C8FC9', '#9CB703', '#F5BB00', '#FF4A32', '#B56CE2', '#45A597'];
 
 function refreshItems()
 {
-    debugger
     $('#new-tasks-list').empty();
 	$('#planned-tasks-list').empty();
     $('#treated-tasks-list').empty();
@@ -99,8 +98,6 @@ function addItem() {
             durationInput = parseInt(durationRadios[i].value);
         }
     }
-
-    debugger
     if($('#otherDay').val())
     {
         durationInput = parseInt($('#otherDay').val());

@@ -26,14 +26,15 @@ button.btn,
 }
 
 .task {
-    padding: 4px 60px 4px 8px;
-    background-color: #ccc;
-    margin: 9px 0;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-    border: 1px solid #aaa;
+	background-color: #ccc;
+	margin: 9px 0;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	border: 1px solid #aaa;
 	white-space: nowrap;
 	user-select: none;
 	cursor: pointer;
+	display: table;
+	width: 100%;
 }
 
 .task.disabled {
@@ -54,10 +55,7 @@ button.btn,
 }
 
 .task > .buttons-container {
-    position: absolute;
-	display: inline-block;
-	width: 50px;
-	text-align: right;
+	width: 60px;
 }
 
 .task button {
@@ -72,4 +70,12 @@ button.btn,
 	margin-bottom:5px;
 }
 
+.task > div{
+	display: table-cell;
+	padding: 4px 8px;
+}
 
+.task > .duration {
+	width: 35px;
+	background-color: rgba(255, 255, 255, 0.3);
+}

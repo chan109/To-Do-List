@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <div class="col-sm-4 col-md-3 col-xl-2">
+    <div class="col-sm-5 col-md-4 col-xl-3">
 
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="New task" id="itemToAdd">
@@ -71,15 +71,16 @@
 			</div>
 		</div>
     </div>
-    <div class="col-sm-8 col-md-9 col-xl-10">
+    <div class="col-sm-7 col-md-8 col-xl-9">
         <div id="calendar"></div>
     </div>
 	<script type="text/x-jsrender" id="task-template">
 		<div class="task {{if treated}}disabled{{/if}}" {{if !treated}} draggable="true" {{/if}} data-id="{{:id}}" {{if color}} style="background-color: {{:color}}" {{/if}}>
-			<span>
+			<div class="duration">{{:duration}} <span class="glyphicon glyphicon-time"></span></div>
+			<div>
 				{{:name}}
 				{{if date}} ({{:~getDate(date)}}) {{/if}}
-			</span>
+			</div>
 			
 			<div class="buttons-container">
 				{{if !treated}}
